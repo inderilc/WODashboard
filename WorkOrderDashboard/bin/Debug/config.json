@@ -1,0 +1,17 @@
+{
+  "Fishbowl": {
+    "FBIAKey": 12398,
+    "FBIAName": "Work Order",
+    "FBIADesc": "Work Order Dashboard",
+    "ServerAddress": "localhost",
+    "ServerPort": 28192,
+    "Username": "admin",
+    "Password": "admin",
+    "Persistent": true,
+    "Host": "localhost",
+    "Port": 3050,
+    "User": "sysdba",
+    "Pass": "Uniform_Whiskey65198",
+    "Database": "C:\\Program Files\\Fishbowl\\database\\data\\EXAMPLE.FDB"
+  }
+}

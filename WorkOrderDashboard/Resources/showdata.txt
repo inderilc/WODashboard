@@ -1,0 +1,11 @@
+select
+    wo.id AS OrderID,
+    wo.num AS OrderNum,
+    bom.num AS BillNum,
+    bom.DESCRIPTION AS BillDesc,
+    wo.DATESCHEDULED AS OrderDate
+from wo
+    join moitem on moitem.id = wo.MOITEMID
+    join bom on bom.id = moitem.BOMID
+
+where wo.STATUSID != 40
