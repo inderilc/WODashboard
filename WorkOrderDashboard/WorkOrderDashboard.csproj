@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Controller\FbController.cs" />
     <Compile Include="Models\OrderData.cs" />
     <Compile Include="SQL\data.Designer.cs">
       <AutoGen>True</AutoGen>

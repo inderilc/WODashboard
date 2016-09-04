@@ -8,6 +8,7 @@ using WorkOrderDashboard.Configuration;
 using System.Collections.ObjectModel;
 using Dapper;
 using FishbowlSDK;
+using WorkOrderDashboard.Controller;
 
 namespace WorkOrderDashboard.Models
 {
