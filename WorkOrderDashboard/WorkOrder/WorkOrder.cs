@@ -39,6 +39,7 @@ namespace WorkOrderDashboard.Models
         public ObservableCollection<OrderDataVM> GetWoData()
         {
             List<OrderData> data = fbc.db.Query<OrderData>(SQL.data.showdata).ToList();
+
             if (data != null)
             {
                 return new ObservableCollection<OrderDataVM>(data.Select(k => new OrderDataVM(k)).ToList());
@@ -52,25 +53,31 @@ namespace WorkOrderDashboard.Models
         
         public void ChangeDateScheduled(List<string> woList, DateTime toChange)
         {
-            Log(string.Format("Changing dates for {0} {1} to {2}.", woList.Count(), woList.Count() < 2 ? "order" : "orders", toChange.ToString("MM-dd-yyyy")));
-            foreach (var wo in woList)
+            int woCount = woList.Count();
+            if (woCount > 0)
             {
-                var rq = new GetWorkOrderRqType();
-                rq.WorkOrderNumber = wo.ToString();
-                var rs = fbc.api.sendAnyRequest(rq) as GetWorkOrderRsType;
-                rs.WO.DateScheduled = toChange.ToString("o");
-                var saverq = new SaveWorkOrderRqType();
-                saverq.WO = rs.WO;
-                var savers = fbc.api.sendAnyRequest(saverq) as SaveWorkOrderRsType;
-                if (savers.statusCode == "1000")
+                Log(string.Format("Changing {0} for {1} {2} to {3}.", woList.Count() < 2 ? "date" : "dates", woList.Count(), woList.Count() < 2 ? "order" : "orders", toChange.ToString("MM-dd-yyyy")));
+                foreach (var wo in woList)
                 {
-                    Log("-----Date Changed for Work Order: " + rq.WorkOrderNumber);
-                }
-                else
-                {
-                    Log("-----Changing Date failed for Work Order: " + rq.WorkOrderNumber);
+                    var rq = new GetWorkOrderRqType();
+                    rq.WorkOrderNumber = wo.ToString();
+                    var rs = fbc.api.sendAnyRequest(rq) as GetWorkOrderRsType;
+                    rs.WO.DateScheduled = toChange.ToString("o");
+                    var saverq = new SaveWorkOrderRqType();
+                    saverq.WO = rs.WO;
+                    var savers = fbc.api.sendAnyRequest(saverq) as SaveWorkOrderRsType;
+                    if (savers.statusCode == "1000")
+                    {
+                        Log("-----Date Changed for Work Order: " + rq.WorkOrderNumber);
+                    }
+                    else
+                    {
+                        Log("-----Changing Date failed for Work Order: " + rq.WorkOrderNumber);
+                    }
                 }
             }
+            else
+            Log("No Orders selected. Please select orders to change date.");
         }
 
     }

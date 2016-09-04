@@ -13,6 +13,8 @@ using Dapper;
 //using EDIApp.Data;
 using System.ComponentModel;
 using System.Text;
+using System.Globalization;
+using System.Threading;
 
 using WorkOrderDashboard.Models;
 
@@ -51,35 +53,22 @@ namespace WorkOrderDashboard.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+            CultureInfo ci = new CultureInfo(Thread.CurrentThread.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+
             toChange = DateTime.Now;
             bwUpdate = new BackgroundWorker();
             bwUpdate.DoWork += UpdateWork;
             bwUpdate.WorkerReportsProgress = true;
             bwUpdate.ProgressChanged += LogUpdate;
             bwUpdate.RunWorkerCompleted += BwUpdate_RunWorkerCompleted;
-
-
-
             try
             {
                 cfg = Config.Load();
                 Config.Save(cfg);
-                /*
-                FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
-                csb.DataSource = cfg.Fishbowl.Host;
-                csb.Database = cfg.Fishbowl.Database;
-                csb.UserID = cfg.Fishbowl.User;
-                csb.Password = cfg.Fishbowl.Pass;
-                csb.Port = cfg.Fishbowl.Port;
-                csb.ServerType = FbServerType.Default;
-
-                db = new FbConnection(csb.ToString());
-                db.Open();
-
-                //cmdUpdate();
-                */
-                
-
+              
             }
             catch (Exception ex)
             {
@@ -90,21 +79,8 @@ namespace WorkOrderDashboard.ViewModel
         }
         public DateTime date;
         public ObservableCollection<OrderDataVM> PendingOrders { get; set; }
-        public DateTime toChange
-        {
-
-            get
-            {
-                return date;
-            }
-            set
-            {
-                date = value;
-            }
-
-        }
-public String Status => sb.ToString();
-
+        public DateTime toChange { get{ return date;} set { date = value;} }
+        public String Status => sb.ToString();
         private void LogUpdate(object sender, ProgressChangedEventArgs e)
         {
             if (e.UserState is String)
@@ -116,10 +92,13 @@ public String Status => sb.ToString();
 
         private void UpdateWork(object sender, DoWorkEventArgs e)
         {
-            var obj = new WorkOrder(cfg);
-            obj.OnLog += WO_OnLog;
-            obj.ChangeDateScheduled(PendingOrders.Where(k => k.Update).Select(x => x.h.OrderNum).ToList(), toChange);
-            RaisePropertyChanged("PendingOrders");
+            
+                var obj = new WorkOrder(cfg);
+                obj.OnLog += WO_OnLog;
+                obj.ChangeDateScheduled(PendingOrders.Where(k => k.Update).Select(x => x.h.OrderNum).ToList(), toChange);
+                RaisePropertyChanged("PendingOrders");
+         
+            
         }
 
         private void BwUpdate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
