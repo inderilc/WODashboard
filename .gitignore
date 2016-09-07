@@ -250,3 +250,11 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+*.exe
+WorkOrderDashboard/bin/Debug/WorkOrderDashboard.exe
+WorkOrderDashboard/bin/Debug/WorkOrderDashboard.pdb
+WorkOrderDashboard/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+WorkOrderDashboard/obj/Debug/WorkOrderDashboard.csproj.FileListAbsolute.txt
+WorkOrderDashboard/obj/Debug/WorkOrderDashboard.csproj.GenerateResource.Cache
+WorkOrderDashboard/obj/Debug/WorkOrderDashboard.pdb
+WorkOrderDashboard/obj/Debug/WorkOrderDashboard_MarkupCompile.lref

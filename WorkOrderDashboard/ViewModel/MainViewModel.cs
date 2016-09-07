@@ -97,8 +97,6 @@ namespace WorkOrderDashboard.ViewModel
                 obj.OnLog += WO_OnLog;
                 obj.ChangeDateScheduled(PendingOrders.Where(k => k.Update).Select(x => x.h.OrderNum).ToList(), toChange);
                 RaisePropertyChanged("PendingOrders");
-         
-            
         }
 
         private void BwUpdate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
