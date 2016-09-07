@@ -21,11 +21,22 @@ namespace WorkOrderDashboard.Models
 
         private Config cfg;
 
+        public WorkOrder()
+        {
+
+        }
 
         public WorkOrder(Config cfg)
         {
-            this.cfg = cfg;
-            fbc = new FbController(this.cfg);
+            try
+            {
+                this.cfg = cfg;
+                fbc = new FbController(this.cfg);
+            }
+            catch (Exception ex)
+            {
+                Log("Initialization of Database Connection Failed. Check Database Connection credential. Original Error: " + ex.Message);
+            }
         }
 
         private void Log(String msg)

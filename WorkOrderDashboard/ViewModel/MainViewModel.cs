@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Globalization;
 using System.Threading;
-
+using System.IO;
 using WorkOrderDashboard.Models;
 
 
@@ -86,6 +86,7 @@ namespace WorkOrderDashboard.ViewModel
             if (e.UserState is String)
             {
                 sb.AppendLine(e.UserState as String);
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "WOLogFile.txt", Status.ToString() + Environment.NewLine);
             }
             RaisePropertyChanged("Status");
         }

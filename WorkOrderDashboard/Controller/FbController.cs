@@ -31,14 +31,16 @@ namespace WorkOrderDashboard.Controller
 
         private string InitCSB()
         {
-            FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
-            csb.DataSource = cfg.Fishbowl.ServerAddress;
-            csb.Database = cfg.Fishbowl.Database;
-            csb.UserID = cfg.Fishbowl.User;
-            csb.Password = cfg.Fishbowl.Pass;
-            csb.Port = cfg.Fishbowl.Port;
-            csb.ServerType = FbServerType.Default;
-            return csb.ToString();
+           
+                FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
+                csb.DataSource = cfg.Fishbowl.ServerAddress;
+                csb.Database = cfg.Fishbowl.Database;
+                csb.UserID = cfg.Fishbowl.User;
+                csb.Password = cfg.Fishbowl.Pass;
+                csb.Port = cfg.Fishbowl.Port;
+                csb.ServerType = FbServerType.Default;
+                return csb.ToString();
+            
         }
 
         private FishbowlSDK.Fishbowl InitAPI()
